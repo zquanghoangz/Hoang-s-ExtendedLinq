@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,17 +9,29 @@ namespace ExtendedLinq
 {
     public static partial class ExtendedLinqExtension
     {
-        public static Dictionary<TResult, int> CountDuplicatedProperty<TSource, TResult>(this IEnumerable<TSource> sources, Func<TSource,TResult> selector )
+        /// <summary>
+        /// Count duplicated item
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="sources"></param>
+        /// <param name="selecter"></param>
+        /// <returns></returns>
+        public static IEnumerable<KeyValuePair<TResult,int>> CountBy<TSource, TResult>
+            (this IEnumerable<TSource> sources, Func<TSource,TResult> selecter )
         {
             //Validate parameter
+            if (sources == null)
+            {
+                throw new ArgumentNullException();
+            }
 
             //Get output
             Dictionary<TResult, int> output = new Dictionary<TResult, int>();
 
             foreach (var item in sources)
             {
-                var result = selector.Invoke(item);
-
+                TResult result = selecter.Invoke(item);
                 if (output.ContainsKey(result))
                 {
                     output[result]++;
@@ -32,6 +45,4 @@ namespace ExtendedLinq
             return output;
         }
     }
-
-
 }
