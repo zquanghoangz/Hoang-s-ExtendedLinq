@@ -6,15 +6,23 @@ using System.Threading.Tasks;
 
 namespace ExtendedLinq
 {
-    public static  partial class ExtendedLinqExtension
+    public static partial class ExtendedLinqExtension
     {
+        /// <summary>
+        /// Count duplicated item
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="sources"></param>
+        /// <returns></returns>
         public static Dictionary<TSource, int> CountDuplicated<TSource>(this IEnumerable<TSource> sources)
         {
+            //Validate parameter
             if (sources == null)
             {
                 throw new ArgumentNullException();
             }
 
+            //Get output
             Dictionary<TSource, int> output = new Dictionary<TSource, int>();
 
             foreach (var item in sources)

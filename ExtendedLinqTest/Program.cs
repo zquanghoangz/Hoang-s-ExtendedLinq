@@ -19,6 +19,18 @@ namespace ExtendedLinqTest
                 Console.WriteLine("{0} : {1}", it.Key, it.Value);
             }
 
+            var input2 = new[]
+            {
+                new {Name = "Hoang", Age = 30}, new {Name = "Hien", Age = 30}, new {Name = "Khanh", Age = 25},
+                new {Name = "Vinh", Age = 30}, new {Name = "Hao", Age = 24}
+            };
+
+            var output2 = input2.CountDuplicatedProperty(x => x.Age);
+            foreach (var it in output2)
+            {
+                Console.WriteLine("{0} : {1}", it.Key, it.Value);
+            }
+
             Console.ReadKey(true);
         }
     }
